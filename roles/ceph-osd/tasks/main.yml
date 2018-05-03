@@ -35,6 +35,21 @@
   when:
     - osd_scenario != 'lvm'
 
+- name: run choose disk detection
+  choose_disk:
+    vars: "{{ vars }}"
+
+- name: print choose disk detection
+  debug:
+    msg: "{{ item }}"
+  with_items:
+    - "{{ data_devices }}"
+    - "{{ journal_devices }}"
+    - "{{ wal_devices }}"
+    - "{{ db_devices }}"
+    - "{{ block_devices }}"
+    - "{{ devices_already_configured }}"
+
 - name: include scenarios/collocated.yml
   include: scenarios/collocated.yml
   when:
